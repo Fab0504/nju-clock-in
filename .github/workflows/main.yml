@@ -46,13 +46,13 @@ jobs:
         run: target/release/nju-clock-in
 
       - name: Run4
-          env:
-            RUST_LOG: info
-            USERNAME: ${{ secrets.USERNAME4 }}
-            PASSWORD: ${{ secrets.PASSWORD4 }}
-            LOCATION: ${{ secrets.LOCATION }}
-            SENDKEY: ${{ secrets.SENDKEY }}
-            PCR_TIME: 2022-04-04
-            ALWAYS_TODAY: true
-            DISABLE_CLOCK_IN: false
-          run: target/release/nju-clock-in
+        env:
+          RUST_LOG: info
+          USERNAME: ${{ secrets.USERNAME4 }}
+          PASSWORD: ${{ secrets.PASSWORD4 }}
+          LOCATION: ${{ secrets.LOCATION }}
+          SENDKEY: ${{ secrets.SENDKEY }}
+          PCR_TIME: 2022-04-04
+          ALWAYS_TODAY: true
+          DISABLE_CLOCK_IN: false
+        run: target/release/nju-clock-in
