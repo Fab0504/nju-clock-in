@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
   schedule:
     - cron: "30 2 * * *"
-# cron: "{seconds} {min} {hour} {day of month} {month} {day of week} {year}"
+# cron: "{min} {hour} {day of month} {month} {day of week} {year}"
   push:
     branches:
       - main
@@ -33,14 +33,26 @@ jobs:
       - name: Build
         run: cargo build --all --release
 
-      - name: Run
+      - name: Run1
         env:
           RUST_LOG: info
-          USERNAME: ${{ secrets.USERNAME }}
-          PASSWORD: ${{ secrets.PASSWORD }}
+          USERNAME: ${{ secrets.USERNAME1 }}
+          PASSWORD: ${{ secrets.PASSWORD1 }}
           LOCATION: ${{ secrets.LOCATION }}
           SENDKEY: ${{ secrets.SENDKEY }}
           PCR_TIME: 2022-04-04
           ALWAYS_TODAY: true
           DISABLE_CLOCK_IN: false
         run: target/release/nju-clock-in
+
+      - name: Run4
+          env:
+            RUST_LOG: info
+            USERNAME: ${{ secrets.USERNAME4 }}
+            PASSWORD: ${{ secrets.PASSWORD4 }}
+            LOCATION: ${{ secrets.LOCATION }}
+            SENDKEY: ${{ secrets.SENDKEY }}
+            PCR_TIME: 2022-04-04
+            ALWAYS_TODAY: true
+            DISABLE_CLOCK_IN: false
+          run: target/release/nju-clock-in
