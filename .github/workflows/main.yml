@@ -56,3 +56,16 @@ jobs:
           ALWAYS_TODAY: true
           DISABLE_CLOCK_IN: false
         run: target/release/nju-clock-in
+
+      - name: Send email
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.163.com
+          server_port: 25
+          username: ${{ secrets.MAIL_USERNAME }}
+          password: ${{ secrets.MAIL_PASSWORD }}
+          subject: nju clock in
+          to: 465144314@qq.com
+          from: Github Actions
+          body: clock in completed
+
