@@ -13,7 +13,7 @@ on:
 #  pull_request:
 
 jobs:
-  build:
+  build1:
     name: Build Suite
     runs-on: ubuntu-latest
     steps:
@@ -33,7 +33,7 @@ jobs:
       - name: Build
         run: cargo build --all --release
 
-      - name: Run1
+      - name: Run
         env:
           RUST_LOG: info
           USERNAME: ${{ secrets.USERNAME1 }}
@@ -45,7 +45,39 @@ jobs:
           DISABLE_CLOCK_IN: false
         run: target/release/nju-clock-in
 
-      - name: Run4
+      - name: Send email
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.163.com
+          server_port: 25
+          username: ${{ secrets.MAIL_USERNAME }}
+          password: ${{ secrets.MAIL_PASSWORD }}
+          subject: nju clock in
+          to: 465144314@qq.com
+          from: Github Actions
+          body: clock in 1 completed
+
+  build4:
+    name: Build Suite
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout sources
+        uses: actions/checkout@v2
+
+      - name: Install rust toolchain
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+          default: true
+          override: true
+
+      - name: Install tesseract
+        run: sudo apt-get update -y && sudo apt-get install -y libleptonica-dev libtesseract-dev clang tesseract-ocr-eng
+
+      - name: Build
+        run: cargo build --all --release
+
+      - name: Run
         env:
           RUST_LOG: info
           USERNAME: ${{ secrets.USERNAME4 }}
@@ -67,5 +99,5 @@ jobs:
           subject: nju clock in
           to: 465144314@qq.com
           from: Github Actions
-          body: clock in completed
+          body: clock in 4 completed
 
