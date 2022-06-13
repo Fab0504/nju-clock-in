@@ -59,6 +59,7 @@ jobs:
 
   build4:
     name: Build Suite
+    needs: build1
     runs-on: ubuntu-latest
     steps:
       - name: Checkout sources
