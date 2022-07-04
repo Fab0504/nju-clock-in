@@ -55,50 +55,50 @@ jobs:
           subject: nju clock in
           to: ${{ secrets.MAIL_RECEIVER }}
           from: Github Actions
-          body: clock in 1 completed
+          body: clock in completed
 
-  build4:
-    name: Build Suite
-    needs: build1
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout sources
-        uses: actions/checkout@v2
-
-      - name: Install rust toolchain
-        uses: actions-rs/toolchain@v1
-        with:
-          toolchain: stable
-          default: true
-          override: true
-
-      - name: Install tesseract
-        run: sudo apt-get update -y && sudo apt-get install -y libleptonica-dev libtesseract-dev clang tesseract-ocr-eng
-
-      - name: Build
-        run: cargo build --all --release
-
-      - name: Run
-        env:
-          RUST_LOG: info
-          USERNAME: ${{ secrets.USERNAME4 }}
-          PASSWORD: ${{ secrets.PASSWORD4 }}
-          LOCATION: ${{ secrets.LOCATION }}
-          SENDKEY: ${{ secrets.SENDKEY }}
-          PCR_TIME: 2022-04-04
-          ALWAYS_TODAY: true
-          DISABLE_CLOCK_IN: false
-        run: target/release/nju-clock-in
-
-      - name: Send email
-        uses: dawidd6/action-send-mail@v3
-        with:
-          server_address: smtp.163.com
-          server_port: 465
-          username: ${{ secrets.MAIL_USERNAME }}
-          password: ${{ secrets.MAIL_PASSWORD }}
-          subject: nju clock in
-          to: ${{ secrets.MAIL_RECEIVER }}
-          from: Github Actions
-          body: clock in 4 completed
+#  build4:
+#    name: Build Suite
+#    needs: build1
+#    runs-on: ubuntu-latest
+#    steps:
+#      - name: Checkout sources
+#        uses: actions/checkout@v2
+#
+#      - name: Install rust toolchain
+#        uses: actions-rs/toolchain@v1
+#        with:
+#          toolchain: stable
+#          default: true
+#          override: true
+#
+#      - name: Install tesseract
+#        run: sudo apt-get update -y && sudo apt-get install -y libleptonica-dev libtesseract-dev clang tesseract-ocr-eng
+#
+#      - name: Build
+#        run: cargo build --all --release
+#
+#      - name: Run
+#        env:
+#          RUST_LOG: info
+#          USERNAME: ${{ secrets.USERNAME4 }}
+#          PASSWORD: ${{ secrets.PASSWORD4 }}
+#          LOCATION: ${{ secrets.LOCATION }}
+#          SENDKEY: ${{ secrets.SENDKEY }}
+#          PCR_TIME: 2022-04-04
+#          ALWAYS_TODAY: true
+#          DISABLE_CLOCK_IN: false
+#        run: target/release/nju-clock-in
+#
+#      - name: Send email
+#        uses: dawidd6/action-send-mail@v3
+#        with:
+#          server_address: smtp.163.com
+#          server_port: 465
+#          username: ${{ secrets.MAIL_USERNAME }}
+#          password: ${{ secrets.MAIL_PASSWORD }}
+#          subject: nju clock in
+#          to: ${{ secrets.MAIL_RECEIVER }}
+#          from: Github Actions
+#          body: clock in 4 completed
 
