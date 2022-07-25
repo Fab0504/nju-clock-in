@@ -36,8 +36,8 @@ jobs:
       - name: Run
         env:
           RUST_LOG: info
-          USERNAME: ${{ secrets.USERNAME1 }}
-          PASSWORD: ${{ secrets.PASSWORD1 }}
+          USERNAME: ${{ secrets.USERNAME_AYY }}
+          PASSWORD: ${{ secrets.PASSWORD_AYY }}
           LOCATION: ${{ secrets.LOCATION }}
           SENDKEY: ${{ secrets.SENDKEY }}
           PCR_TIME: 2022-04-04
