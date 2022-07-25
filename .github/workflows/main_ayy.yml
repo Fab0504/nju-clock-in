@@ -1,30 +1,51 @@
-# This is a basic workflow to help you get started with Actions
+# Based on https://github.com/actions-rs/meta/blob/master/recipes/quickstart.md
 
-name: CI
+name: Clock in ayy
 
-# Controls when the workflow will run
 on:
-  # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
-  build:
-    # The type of runner that the job will run on
+  build1:
+    name: Build Suite
     runs-on: ubuntu-latest
-
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v3
+      - name: Checkout sources
+        uses: actions/checkout@v2
 
-      # Runs a single command using the runners shell
-      - name: Run a one-line script
-        run: echo Hello, world!
+      - name: Install rust toolchain
+        uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+          default: true
+          override: true
 
-      # Runs a set of commands using the runners shell
-      - name: Run a multi-line script
-        run: |
-          echo Add other actions to build,
-          echo test, and deploy your project.
+      - name: Install tesseract
+        run: sudo apt-get update -y && sudo apt-get install -y libleptonica-dev libtesseract-dev clang tesseract-ocr-eng
+
+      - name: Build
+        run: cargo build --all --release
+
+      - name: Run
+        env:
+          RUST_LOG: info
+          USERNAME: ${{ secrets.USERNAME_AYY }}
+          PASSWORD: ${{ secrets.PASSWORD_AYY }}
+          LOCATION: ${{ secrets.LOCATION_AYY }}
+          SENDKEY: ${{ secrets.SENDKEY }}
+          PCR_TIME: 2022-04-04
+          ALWAYS_TODAY: true
+          DISABLE_CLOCK_IN: false
+        run: target/release/nju-clock-in
+
+      - name: Send email
+        uses: dawidd6/action-send-mail@v3
+        with:
+          server_address: smtp.163.com
+          server_port: 465
+          username: ${{ secrets.MAIL_USERNAME }}
+          password: ${{ secrets.MAIL_PASSWORD }}
+          subject: nju clock in
+          to: ${{ secrets.MAIL_RECEIVER_AYY }}
+          from: Github Actions
+          body: clock in completed
