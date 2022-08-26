@@ -1,6 +1,6 @@
 # Based on https://github.com/actions-rs/meta/blob/master/recipes/quickstart.md
 
-name: Clock in
+name: Clock in as postgraduate
 
 on:
   workflow_dispatch:
