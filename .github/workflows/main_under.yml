@@ -1,9 +1,17 @@
 # Based on https://github.com/actions-rs/meta/blob/master/recipes/quickstart.md
 
-name: Clock in ayy
+name: Clock in
 
 on:
   workflow_dispatch:
+#  push:
+#    branches:
+#      - main
+#  schedule:
+#    - cron: "30 2 * * *"
+## cron: "{min} {hour} {day of month} {month} {day of week} {year}"
+#  pull_request:
+
 
 jobs:
   build1:
@@ -29,9 +37,9 @@ jobs:
       - name: Run
         env:
           RUST_LOG: info
-          USERNAME: ${{ secrets.USERNAME_AYY }}
-          PASSWORD: ${{ secrets.PASSWORD_AYY }}
-          LOCATION: ${{ secrets.LOCATION_AYY }}
+          USERNAME: ${{ secrets.USERNAME_UNDER }}
+          PASSWORD: ${{ secrets.PASSWORD_UNDER }}
+          LOCATION: ${{ secrets.LOCATION }}
           SENDKEY: ${{ secrets.SENDKEY }}
           PCR_TIME: 2022-04-04
           ALWAYS_TODAY: true
@@ -46,6 +54,6 @@ jobs:
           username: ${{ secrets.MAIL_USERNAME }}
           password: ${{ secrets.MAIL_PASSWORD }}
           subject: nju clock in
-          to: ${{ secrets.MAIL_RECEIVER_AYY }}
+          to: ${{ secrets.MAIL_RECEIVER }}
           from: Github Actions
-          body: clock in completed
+          body: undergraduate clock in completed

@@ -37,8 +37,8 @@ jobs:
       - name: Run
         env:
           RUST_LOG: info
-          USERNAME: ${{ secrets.USERNAME1 }}
-          PASSWORD: ${{ secrets.PASSWORD1 }}
+          USERNAME: ${{ secrets.USERNAME_POST }}
+          PASSWORD: ${{ secrets.PASSWORD_POST }}
           LOCATION: ${{ secrets.LOCATION }}
           SENDKEY: ${{ secrets.SENDKEY }}
           PCR_TIME: 2022-04-04
@@ -56,4 +56,4 @@ jobs:
           subject: nju clock in
           to: ${{ secrets.MAIL_RECEIVER }}
           from: Github Actions
-          body: clock in completed
+          body: postgraduate clock in completed
